@@ -10,4 +10,4 @@ To get the latest version of this to work, it is necessary to install PyBLuez. T
 
   > sudo apt-get install bluetooth libbluetooth-dev
   
-  > sudo pip install install pybluez
+  > sudo pip install pybluez
