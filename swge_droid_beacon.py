@@ -1,18 +1,43 @@
+#!/usr/bin/python3
+
+
+import bluetooth._bluetooth as bluez
+import struct
+import time
 import os
 import random
-import time
+
+if os.geteuid() != 0:
+    exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
 
 def beacon_function():
-    payload = ['01', '02', '03', '04', '05', '06', '07']
-    os.system("sudo hciconfig hci0 noleadv")
-    os.system("sudo hcitool -i hci0 cmd 0x08 0x0008 0C 02 01 1A 10 FF 83 01 0A 04 " + random.choice(payload) + " 02 A6 01")
-    os.system("sudo hciconfig hci0 leadv 3")    
+  OGF_LE_CTL=0x08
+  OCF_HCI_LE_Set_Advertising_Data=0x0008
+  OCF_HCI_LE_Set_Advertising_Enable=0x000A
+  disable=struct.pack("<B", 0x00)
+  enable=struct.pack("<B", 0x01)
+  data01=struct.pack("<BBBBBBBBBBBBBB", 0x0D, 0x02, 0x01, 0x06, 0x09, 0xFF, 0x83, 0x01, 0x0A, 0x04, 0x01, 0x02, 0xA6, 0x01)
+  data02=struct.pack("<BBBBBBBBBBBBBB", 0x0D, 0x02, 0x01, 0x06, 0x09, 0xFF, 0x83, 0x01, 0x0A, 0x04, 0x02, 0x02, 0xA6, 0x01)
+  data03=struct.pack("<BBBBBBBBBBBBBB", 0x0D, 0x02, 0x01, 0x06, 0x09, 0xFF, 0x83, 0x01, 0x0A, 0x04, 0x03, 0x02, 0xA6, 0x01)
+  data04=struct.pack("<BBBBBBBBBBBBBB", 0x0D, 0x02, 0x01, 0x06, 0x09, 0xFF, 0x83, 0x01, 0x0A, 0x04, 0x04, 0x02, 0xA6, 0x01)
+  data05=struct.pack("<BBBBBBBBBBBBBB", 0x0D, 0x02, 0x01, 0x06, 0x09, 0xFF, 0x83, 0x01, 0x0A, 0x04, 0x05, 0x02, 0xA6, 0x01)
+  data06=struct.pack("<BBBBBBBBBBBBBB", 0x0D, 0x02, 0x01, 0x06, 0x09, 0xFF, 0x83, 0x01, 0x0A, 0x04, 0x06, 0x02, 0xA6, 0x01)
+  data07=struct.pack("<BBBBBBBBBBBBBB", 0x0D, 0x02, 0x01, 0x06, 0x09, 0xFF, 0x83, 0x01, 0x0A, 0x04, 0x07, 0x02, 0xA6, 0x01)
+  data = [data01, data02, data03, data04, data05, data06, data07]
+  cmd_pkt = random.choice(data)
+  bluez.hci_send_cmd(sock, OGF_LE_CTL, OCF_HCI_LE_Set_Advertising_Enable, disable)
+  bluez.hci_send_cmd(sock, OGF_LE_CTL, OCF_HCI_LE_Set_Advertising_Data, cmd_pkt)
+  bluez.hci_send_cmd(sock, OGF_LE_CTL, OCF_HCI_LE_Set_Advertising_Enable, enable)
 
 def rnd_delay():
-     delay = random.randrange (60, 300)
-     time.sleep(delay)
+  delay = random.randrange (60, 300)
+  time.sleep(delay)
 
 while True:
-    beacon_function()
-    rnd_delay()
-
+  try:
+#   dev_id = 0
+    sock = bluez.hci_open_dev(0)#sock = bluez.hci_open_dev(dev_id)
+  except:
+    print ("Error accessing bluetooth")
+  beacon_function()
+  rnd_delay()
