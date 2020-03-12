@@ -11,4 +11,5 @@ I have decided to change directions for UI/management and am adding a Web UI uti
 To get the latest version of this to work, it is necessary to install PyBLuez and CherryPy. To do this, run the following commands:
 
   > sudo apt-get install bluetooth libbluetooth-dev
+  
   > sudo pip3 install pybluez cherrypy
