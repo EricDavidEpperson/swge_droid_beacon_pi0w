@@ -29,12 +29,12 @@ class swgeBeacon(object):
       <input type="radio" name="data" id="slct7" value=data07> 07  First Order<br>
       <input type="radio" name="data" id="rnd_slct" value=data00 disabled> Random <i> for future use</i><br>
       <br>
-      <input type="checkbox" name="" id="ff" value="" disabled><label for="ff"> FF <i> for future use</i>></label>
+      <input type="checkbox" name="" id="ff" value="" disabled><label for="ff"> FF <i> for future use</i></label>
       <br><br>
       <input type="Submit" style="background-color:green">
     </form>
     <form method="post" action="disa_BLE">
-      <input type="Submit" value="Disable" style="background-color:crimson"><i> for future use</i>
+      <input type="Submit" value="Disable" style="background-color:crimson">
     </form>
 """
     return html_body
