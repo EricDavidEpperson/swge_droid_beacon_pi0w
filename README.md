@@ -13,3 +13,11 @@ To get the latest version of this to work, it is necessary to install PyBLuez an
   > sudo apt-get install bluetooth libbluetooth-dev
   
   > sudo pip3 install pybluez cherrypy
+
+The web server is configured to listen on port 8080. To access the web page you can point a web browser at the IP address or hostname of the Raspberry Pi, similar to the following examples:
+
+  http://raspberrypi:8080
+or
+  http://192.168.0.xxx:8080
+  
+  I'll leave it to you to find what the hostname or IP address of your Pi is. Google is your friend ;D
