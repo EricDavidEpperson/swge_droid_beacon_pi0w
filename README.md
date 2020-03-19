@@ -21,3 +21,5 @@ or
   http://192.168.0.xxx:8080
   
   I'll leave it to you to find what the hostname or IP address of your Pi is. Google is your friend ;D
+  
+Testing revealed that threading (or using cherrypy.process.plugins.BackgroundTask) would cause the application to freeze and need to stop the full python task to stop. Work will continue on this feature and I willl update further when available.
