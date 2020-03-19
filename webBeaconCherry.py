@@ -5,8 +5,6 @@ import cherrypy
 import os
 import random
 import struct
-#import thread
-#import time
 
 if os.geteuid() != 0:
     exit("You need to have root privileges to run this script.\nPlease try again, this time using 'sudo'. Exiting.")
@@ -82,27 +80,6 @@ class swgeBeacon(object):
     bluez.hci_send_cmd(sock, OGF_LE_CTL, OCF_HCI_LE_Set_Advertising_Enable, dis_adv)
     html_body = "<h1>Disabling BLE Advertisement</h1>"
     return return_header + html_body
-
-  @cherrypy.expose
-  def set_timer(self):
-    html_body = \
-"""
-    Note: Use the STOP button to stop the random beacon change timer. It will continue to operate until the button is pushed<br><br>
-    <form method="post" action="countdown_timer">
-    <label for="time">Time in minutes (1-10) </label>
-    <input type="number" name="time_value" id="time" min="1" max="10" style="text-align: right;" value="5">
-    <input type="Submit" style="background-color:green">
-    </form>
-"""
-    return html_body
-
-  @cherrypy.expose
-  def countdown_timer(self, time_value):
-    html_body = \
-"""
-    <h1> time_value goes here with a Cancel button </h1>
-"""
-    return html_body
 
 if __name__ == '__main__':
   cherrypy.config.update({'server.socket_host': '0.0.0.0'})
