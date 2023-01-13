@@ -9,7 +9,7 @@ There has already been work to recreate this with Micro:bit SBC's. I have a spar
 
 It is necessary to install PyBLuez and CherryPy. To do this, run the following commands:
 
-  > sudo apt-get install bluetooth libbluetooth-dev
+  > sudo apt-get install bluetooth libbluetooth-dev python3-bluez
   
   > sudo pip3 install pybluez cherrypy
 
